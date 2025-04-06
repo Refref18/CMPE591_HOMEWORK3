@@ -47,13 +47,13 @@ Three sets of experiments were conducted with varying learning rates.
 Below are the plots representing the reward over episodes for each experiment:
 
 - **Plot 1:** Initial training with a high learning rate (1e-3) - No significant learning observed.  
-  ![Plot 1](total_reward_plot_2025-04-06_13-50-22.png)
+  ![Plot 1](src/plots/total_reward_plot_2025-04-06_13-50-22.png)
 
 - **Plot 2:** Reduced learning rate (1e-4) - Gradual improvement initially.  
-  ![Plot 2](total_reward_plot_2025-04-06_19-30-30.png)
+  ![Plot 2](src/plots/total_reward_plot_2025-04-06_19-30-30.png)
 
 - **Plot 3:** Continued training with the same setup - Initial improvement followed by instability.  
-  ![Plot 3](total_reward_plot_2025-04-06_21-10-32.png)
+  ![Plot 3](src/plots/total_reward_plot_2025-04-06_21-10-32.png)
 
 ## Observations
 
