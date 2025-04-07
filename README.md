@@ -43,7 +43,7 @@ Three sets of experiments were conducted with varying learning rates.
 - **Observation:** The reward initially showed an upward trend around episode 500 but then deteriorated again, indicating instability in the learning process.
 
 And after 2000 epoisodes still no sign of stable learning
-[Final plot](src/plots/total_reward_plot_2025-04-07_11-50-54)
+![Final plot](src/plots/total_reward_plot_2025-04-07_11-50-54)
 
 ## Visual Results
 
