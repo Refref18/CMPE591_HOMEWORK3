@@ -15,50 +15,44 @@ if __name__ == "__main__":
 
     agent = Agent()
     num_episodes = 10000  # Number of episodes to train
+    step_size    = 200    # maximum steps per episode
 
     rews = []  # List to store cumulative rewards for each episode
-    best_reward = float('-inf')  # Initialize the best reward with a very low value
+    best_reward = float('-inf')
 
-    for i in range(num_episodes):        
-        state, _ = env.reset()  # Get the initial state
-        done = False  # Flag to indicate the end of an episode
-        cumulative_reward = 0.0  # Track the total reward for the episode
-        episode_steps = 0  # Step counter for the current episode
+    for i in range(num_episodes):
+        state, _ = env.reset()
+        done = False
+        cumulative_reward = 0.0
+        episode_steps = 0
 
-        # Run the episode until it is done
-        while not done:
+        # Run the episode until done OR until you hit step_size
+        while not done and episode_steps < step_size:
             action = agent.decide_action(state)
-
-            # env.step only bir defa çağrılmalı:
             next_state, reward, terminated, truncated, info = env.step(action)
             done = terminated or truncated
 
             agent.add_reward(reward)
             cumulative_reward += reward
             state = next_state
+            episode_steps += 1
 
-        # Print the total reward for the current episode
+        # Log every 100 episodes
         if i % 100 == 0:
-            
-            print(f"Episode={i}, reward={cumulative_reward}")
-        rews.append(cumulative_reward)  # Save the cumulative reward
+            print(f"Episode={i}, steps={episode_steps}, reward={cumulative_reward:.2f}")
 
-        # Update the model after each episode
+        rews.append(cumulative_reward)
         agent.update_model()
 
-        # Save the model if the current episode's reward is the best so far
         if cumulative_reward > best_reward:
             best_reward = cumulative_reward
             torch.save(agent.model.state_dict(), "best_model.pt")
-            print(f"✨ New best model saved with reward: {best_reward}")
+            print(f"✨ New best model saved with reward: {best_reward:.2f}")
 
-        # Log the total reward for the episode in a file
-        with open("model_total_reward_per_episode.txt", "a") as file:
-            file.write(f"{i},{cumulative_reward}\n")
+        with open("model_total_reward_per_episode.txt", "a") as f:
+            f.write(f"{i},{cumulative_reward}\n")
 
-    # Save the final best model and the rewards list
+    # Final save
     torch.save(agent.model.state_dict(), "best_model.pt")
     np.save("rews.npy", np.array(rews))
-
-        
 

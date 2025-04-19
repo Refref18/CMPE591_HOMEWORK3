@@ -28,7 +28,7 @@ def plot_and_save():
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
         # Log dosyasını oku
-        total_reward_per_episode = read_log_file("total_reward_per_episode.txt")
+        total_reward_per_episode = read_log_file("model_total_reward_per_episode.txt")
 
         # 📊 Total Reward per Episode
         if total_reward_per_episode.size > 0:
