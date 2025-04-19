@@ -2,7 +2,7 @@ import torch.nn as nn
 
 
 class VPG(nn.Module):
-    def __init__(self, obs_dim=6, act_dim=2, hl=[256, 512, 256]) -> None:
+    def __init__(self, obs_dim=23, act_dim=7, hl=[256, 512, 256]) -> None:
         super(VPG, self).__init__()
         layers = []
         layers.append(nn.Linear(obs_dim, hl[0]))
