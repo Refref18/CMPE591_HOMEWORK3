@@ -25,41 +25,46 @@ REINFORCE is a Monte Carlo policy gradient method that optimizes a parameterized
 
 ## Experimental Results
 
-Three sets of experiments were conducted with varying learning rates.
+We ran four sets of experiments:
 
-### Experiment 1: Learning Rate = 1e-3
+### Experiment 1: Learning Rate = 1e-3
 
-- **Number of Episodes:** 1500+
-- **Observation:** The agent did not learn effectively, and the reward remained low throughout the episodes.
+- **Episodes:** 1500+
+- **Observation:** The agent failed to learn; rewards remained low and noisy.
+- ![Plot 1](src/plots/total_reward_plot_2025-04-06_13-50-22.png)
 
-### Experiment 2: Learning Rate = 1e-4
+### Experiment 2: Learning Rate = 1e-4
 
-- **Number of Episodes:** 700
-- **Observation:** Initially, the reward increased around episode 500 but started decreasing afterward.
+- **Episodes:** 700
+- **Observation:** Rewards began improving around episode 500 but then declined again.
+- ![Plot 2](src/plots/total_reward_plot_2025-04-06_19-30-30.png)
 
-### Experiment 3: Learning Rate = 1e-4 (Continued)
+### Experiment 3: Learning Rate = 1e-4 (continued to 2000 episodes)
 
-- **Number of Episodes:** 700+
-- **Observation:** The reward initially showed an upward trend around episode 500 but then deteriorated again, indicating instability in the learning process.
+- **Episodes:** 2000+
+- **Observation:** Initial upward trend gave way to instability; no sustained improvement.
+- ![Plot 3](src/plots/total_reward_plot_2025-04-06_21-10-32.png)
 
-And after 2000 epoisodes still no sign of stable learning
-![Final plot](src/plots/total_reward_plot_2025-04-07_11-50-54.png)
+### Experiment 4: REINFORCE + Baseline (Advantage)
 
-## Visual Results
+- **Modification:** Introduced a running baseline (mean of past episode returns) and used advantages = (return – baseline) in the policy gradient.
+- **Episodes:** 10 000
+- **Observation:** Learning became stable—both raw returns (blue) and 100‑episode moving average (red) rise smoothly and plateau at higher values, with far less variance.
+- ![Plot 4](plots/total_reward_plot_2025-04-20_01-00-34.png)
 
-Below are the plots representing the reward over episodes for each experiment:
+![Final plot](plots/total_reward_plot_2025-04-20_01-00-34.png)
 
-- **Plot 1:** Initial training with a high learning rate (1e-3) - No significant learning observed.  
-  ![Plot 1](src/plots/total_reward_plot_2025-04-06_13-50-22.png)
+## Discussion
 
-- **Plot 2:** Reduced learning rate (1e-4) - Gradual improvement initially.  
-  ![Plot 2](src/plots/total_reward_plot_2025-04-06_19-30-30.png)
+- **High LR (1e-3)** → Too big updates, no convergence.
+- **Lower LR (1e-4)** → Some early gains followed by collapse—PG without variance reduction is unstable.
+- **Adding Baseline** → Subtracting a learned baseline dramatically reduces variance and stabilizes learning. You can see the raw reward still fluctuates, but the moving average steadily climbs to around –50, whereas previously it hovered around –60/–70 at best.
 
-- **Plot 3:** Continued training with the same setup - Initial improvement followed by instability.  
-  ![Plot 3](src/plots/total_reward_plot_2025-04-06_21-10-32.png)
+## Conclusion & Next Steps
 
-## Observations
+Using a baseline (i.e. advantage estimates) is essential for stable policy‐gradient learning in continuous control tasks. Future improvements might include:
 
-- A higher learning rate (1e-3) caused instability, leading to poor learning.
-- Lowering the learning rate to `1e-4` helped the agent learn better at first, but the learning was not stable.
-- Adjusting the reward function and other hyperparameters or using adaptive learning rates may improve performance.
+- **Adaptive learning rates** (e.g. Adam with learning‑rate schedules)
+- **Entropy regularization** to encourage exploration
+- **More sophisticated baselines** (e.g. state‑value networks)
+- **Trust‐region or PPO** style updates to further constrain policy changes
