@@ -50,7 +50,6 @@ We ran four sets of experiments:
 - **Modification:** Introduced a running baseline (mean of past episode returns) and used advantages = (return – baseline) in the policy gradient.
 - **Episodes:** 10 000
 - **Observation:** Learning became stable—both raw returns (blue) and 100‑episode moving average (red) rise smoothly and plateau at higher values, with far less variance.
-- ![Plot 4](plots/total_reward_plot_2025-04-20_01-00-34.png)
 
 ![Final plot](plots/total_reward_plot_2025-04-20_01-00-34.png)
 
