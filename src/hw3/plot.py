@@ -35,7 +35,7 @@ def plot_and_save():
             fig, ax1 = plt.subplots(figsize=(10, 6))
             episodes = total_reward_per_episode[:, 0]
             total_rewards = total_reward_per_episode[:, 1]
-            mva_total_rewards = moving_average(total_rewards, window_size=100)
+            mva_total_rewards = moving_average(total_rewards, window_size=1500)
 
             ax1.set_xlabel("Episode")
             ax1.set_ylabel("Total Reward", color="tab:blue")
@@ -43,8 +43,8 @@ def plot_and_save():
             ax1.tick_params(axis="y", labelcolor="tab:blue")
 
             ax2 = ax1.twinx()
-            ax2.set_ylabel("Moving Avg (100)", color="red")
-            ax2.plot(episodes[:len(mva_total_rewards)], mva_total_rewards, label="Moving Avg (100)", color="red")
+            ax2.set_ylabel("Moving Avg (1500)", color="red")
+            ax2.plot(episodes[:len(mva_total_rewards)], mva_total_rewards, label="Moving Avg (1500)", color="red")
             ax2.tick_params(axis="y", labelcolor="red")
 
             fig.tight_layout()

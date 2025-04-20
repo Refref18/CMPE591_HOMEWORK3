@@ -58,3 +58,4 @@ We ran four sets of experiments:
 ## Visualizing the reults
 
 - You can visualize what model learned by running `trained.py` it shows what best model learned on gymnasium environment.
+- You can visualize succesfull and failed examples in `videos` folder.
