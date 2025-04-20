@@ -2,11 +2,7 @@
 
 ## Introduction
 
-In this homework, we aim to train a robot to push an object to a desired position using reinforcement learning methods. The primary focus of this task is to implement and train a Vanilla Policy Gradient (REINFORCE) model, which is worth 75 points. The environment used is similar to the previous homework, but now the action space is continuous. We use high-level states instead of raw pixel data for the input.
-
-## Problem Statement
-
-The task is to train a robot arm to push an object to a goal position. The action space is continuous, meaning the agent needs to learn how to control the arm's movements precisely. The goal is to maximize the reward by pushing the object closer to the goal while minimizing unnecessary movements.
+In this homework, we aim to train a robot to push an object to a desired position using reinforcement learning methods. The primary focus of this task is to implement and train a Vanilla Policy Gradient (REINFORCE) model. I used gymnasium environment for fast training.
 
 ## Approach: Vanilla Policy Gradient (REINFORCE)
 
@@ -19,8 +15,8 @@ REINFORCE is a Monte Carlo policy gradient method that optimizes a parameterized
 ## Implementation Details
 
 - **Network Architecture:** The policy network consists of fully connected layers with ReLU activations, predicting both the mean and standard deviation of the action distribution.
-- **Optimizer:** Adam optimizer with a learning rate of `1e-4`.
-- **Discount Factor (Gamma):** Set to `0.99` to balance immediate and future rewards.
+- **Optimizer:** Adam optimizer with a learning rate of `5e-5`.
+- **Discount Factor (Gamma):** Set to `0.95` to balance immediate and future rewards.
 - **Action Sampling:** The action is sampled from a Gaussian distribution whose mean and standard deviation are predicted by the network.
 
 ## Experimental Results
@@ -48,7 +44,7 @@ We ran four sets of experiments:
 ### Experiment 4: REINFORCE + Baseline (Advantage)
 
 - **Modification:** Introduced a running baseline (mean of past episode returns) and used advantages = (return – baseline) in the policy gradient.
-- **Episodes:** 10 000
+- **Episodes:** 10 000 then increased to 500 000
 - **Observation:** Learning became stable—both raw returns (blue) and 100‑episode moving average (red) rise smoothly and plateau at higher values, with far less variance.
 
 ![Final plot](plots/total_reward_plot_2025-04-20_01-00-34.png)
@@ -57,13 +53,8 @@ We ran four sets of experiments:
 
 - **High LR (1e-3)** → Too big updates, no convergence.
 - **Lower LR (1e-4)** → Some early gains followed by collapse—PG without variance reduction is unstable.
-- **Adding Baseline** → Subtracting a learned baseline dramatically reduces variance and stabilizes learning. You can see the raw reward still fluctuates, but the moving average steadily climbs to around –50, whereas previously it hovered around –60/–70 at best.
+- **Adding Baseline** → Subtracting a learned baseline dramatically reduces variance and stabilizes learning. You can see the raw reward still fluctuates, but the moving average steadily climbs.
 
-## Conclusion & Next Steps
+## Visualizing the reults
 
-Using a baseline (i.e. advantage estimates) is essential for stable policy‐gradient learning in continuous control tasks. Future improvements might include:
-
-- **Adaptive learning rates** (e.g. Adam with learning‑rate schedules)
-- **Entropy regularization** to encourage exploration
-- **More sophisticated baselines** (e.g. state‑value networks)
-- **Trust‐region or PPO** style updates to further constrain policy changes
+- You can visualize what model learned by running `trained.py` it shows what best model learned on gymnasium environment.
