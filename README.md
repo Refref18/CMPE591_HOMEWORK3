@@ -31,19 +31,19 @@ We ran four sets of experiments:
 
 - **Episodes:** 1500+
 - **Observation:** The agent failed to learn; rewards remained low and noisy.
-- ![Plot 1](src/plots/total_reward_plot_2025-04-06_13-50-22.png)
+- ![Plot 1](plots/total_reward_plot_2025-04-06_13-50-22.png)
 
 ### Experiment 2: Learning Rate = 1e-4
 
 - **Episodes:** 700
 - **Observation:** Rewards began improving around episode 500 but then declined again.
-- ![Plot 2](src/plots/total_reward_plot_2025-04-06_19-30-30.png)
+- ![Plot 2](plots/total_reward_plot_2025-04-06_19-30-30.png)
 
 ### Experiment 3: Learning Rate = 1e-4 (continued to 2000 episodes)
 
 - **Episodes:** 2000+
 - **Observation:** Initial upward trend gave way to instability; no sustained improvement.
-- ![Plot 3](src/plots/total_reward_plot_2025-04-06_21-10-32.png)
+- ![Plot 3](plots/total_reward_plot_2025-04-06_21-10-32.png)
 
 ### Experiment 4: REINFORCE + Baseline (Advantage)
 
