@@ -5,13 +5,13 @@ import gymnasium as gym
 import torch
 import numpy as np
 
-from actor_critic_agent import SACAgent   # make sure this file is in your PYTHONPATH
+from actor_critic_agent import SACAgent  
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 if __name__ == "__main__":
     # 1) Environment and SAC agent
-    env = gym.make("Pusher-v5", render_mode=None)
+    env = gym.make("Pusher-v5")
     obs_dim = env.observation_space.shape[0]
     act_dim = env.action_space.shape[0]
     agent = SACAgent(obs_dim, act_dim,
@@ -20,8 +20,8 @@ if __name__ == "__main__":
                      tau=0.005,
                      alpha=0.2,
                      lr_pi=5e-5,
-                     lr_q=3e-4,
-                     lr_v=3e-4,
+                     lr_q=5e-4,
+                     lr_v=5e-4,
                      hidden_sizes=[256,256],
                      batch_size=256)
 

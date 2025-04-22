@@ -33,7 +33,6 @@ def demo_multi_record(
         state, _ = env.reset()
         done = False
         total_reward = 0.0
-        steps = 0
 
         while not done:
             action = agent.decide_action(state)
@@ -42,9 +41,8 @@ def demo_multi_record(
             done = terminated or truncated
             env.render()           # returns frame for RecordVideo
             time.sleep(render_delay)
-            steps += 1
 
-        print(f"Run {run+1}/{num_runs}: reward={total_reward:.2f}, steps={steps}")
+        print(f"Run {run+1}/{num_runs}: reward={total_reward:.2f}")
 
     env.close()
 
