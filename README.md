@@ -5,7 +5,7 @@
 In this homework, we aim to train a robot to push an object to a desired position using reinforcement learning methods. The primary focus of this task is to implement and train a Vanilla Policy Gradient (REINFORCE) model as well as Actor Critic Model. I used gymnasium environment for fast training.
 - You can visualize succesfull and failed examples in `videos` folder.
   
-## Approach: Vanilla Policy Gradient (REINFORCE)
+# Vanilla Policy Gradient (REINFORCE)
 
 REINFORCE is a Monte Carlo policy gradient method that optimizes a parameterized policy by following the gradient of expected return. The policy is updated based on the cumulative rewards obtained during each episode. The following components are crucial for the algorithm:
 
