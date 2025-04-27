@@ -52,7 +52,7 @@ We ran four sets of experiments:
 
 ## Visualizing the results
 
-- You can visualize what model learned by running `trained.py` it shows what best model learned on gymnasium environment.
+- You can visualize what model learned by running `[trained.py](https://github.com/Refref18/CMPE591_HOMEWORK3/blob/main/src/hw3/trained.py)` it shows what best model learned on gymnasium environment.
 - You can visualize succesfull and failed examples in `videos` folder.
 
 
