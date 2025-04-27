@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this homework, we aim to train a robot to push an object to a desired position using reinforcement learning methods. The primary focus of this task is to implement and train a Vanilla Policy Gradient (REINFORCE) model. I used gymnasium environment for fast training.
+In this homework, we aim to train a robot to push an object to a desired position using reinforcement learning methods. The primary focus of this task is to implement and train a Vanilla Policy Gradient (REINFORCE) model as well as Actor Critic Model. I used gymnasium environment for fast training.
 
 ## Approach: Vanilla Policy Gradient (REINFORCE)
 
@@ -55,7 +55,43 @@ We ran four sets of experiments:
 - **Lower LR (1e-4)** → Some early gains followed by collapse—PG without variance reduction is unstable.
 - **Adding Baseline** → Subtracting a learned baseline dramatically reduces variance and stabilizes learning. You can see the raw reward still fluctuates, but the moving average steadily climbs.
 
-## Visualizing the reults
+## Visualizing the results
 
 - You can visualize what model learned by running `trained.py` it shows what best model learned on gymnasium environment.
 - You can visualize succesfull and failed examples in `videos` folder.
+
+
+# Soft Actor–Critic with GAE (Actor-Critic)
+
+In addition to REINFORCE, I also implemented an off-policy actor–critic (SAC) augmented with Generalized Advantage Estimation (GAE).
+
+### Algorithm Details
+
+- **Policy (Actor):** GaussianPolicy network predicting mean & log-std, followed by a tanh squashing.
+- **Critics (Twin Q):** Two Q-networks to mitigate positive bias.
+- **Value network:** Vθ(s) with a soft target V̄θ for bootstrapping.
+- **GAE (λ=0.95):** Compute advantages from stored transitions.
+- **Replay buffer:** 1 000 000 capacity, sample-and-update every step.
+
+### Hyperparameters
+
+| Parameter               | Value        |
+|-------------------------|--------------|
+| γ (discount)            | 0.99         |
+| τ (target update rate)  | 0.005        |
+| α (entropy weight)      | 0.2          |
+| lr (π)                  | 5 × 10⁻⁵     |
+| lr (Q₁ & Q₂)            | 5 × 10⁻⁴     |
+| lr (V)                  | 5 × 10⁻⁴     |
+| hidden layers           | [256, 256]   |
+| batch size              | 256          |
+| λ (GAE)                 | 0.95         |
+| max steps/episode       | 200          |
+| episodes                | 50 000       |
+| log interval            | 1000 ep      |
+
+
+## Results
+I ran 4 000 episodes (of the planned 50 000) with no noticeable improvement over a random policy—returns hovered around –85 and the 100-episode moving average stayed flat:
+
+![Final Actor-critic plot](plots/total_reward_plot_2025-04-22_18-16-54.png)
